@@ -80,9 +80,9 @@ def page_crawler(html, QA_data):
     print(QA_data)
     return QA_data
 
-def move_around():
+def move_around(button_xpath):
     WebDriverWait(driver, 30).until(
-        EC.element_to_be_clickable((By.CLASS_NAME, "open-captcha"))
+        EC.element_to_be_clickable((By.XPATH, button_xpath))
     ).click()
     print("Next page clicked")
     
@@ -135,9 +135,16 @@ if __name__ == "__main__":
 
     for i in range(int(num_pages)):
         QA_data = page_crawler(driver.page_source, QA_data)
-        move_around()
 
-    print(QA_data)
+        if i == 0:
+            button_xpath = "/html/body/div[4]/div/div[2]/div[1]/button[1]"
+        else:
+            button_xpath = "/html/body/div[2]/div/div[2]/div[1]/button[2]"
+        move_around(button_xpath)
+
+    QA_data.to_csv("bcba_exam_questions.csv", index=False)
+    print("📁 Data saved to bcba_exam_questions.csv")
+
     driver.quit()
     print("Done!")
 
