@@ -2,8 +2,9 @@ import pandas as pd
 import ssl 
 import requests
 from bs4 import BeautifulSoup
-import pyautogui
 import time
+from selenium import webdriver
+
 
 def is_valid_url(url):
     if url.startswith('http://') or url.startswith('https://'):
@@ -99,27 +100,30 @@ def page_crawler(url, QA_data):
     print(QA_data)
     return QA_data
 
-
-
 def move_around():
-    pyautogui.scroll(-10)
-    pyautogui.click(2153, 429, button='left')
+    driver.find_element("xpath", "/html/body/div[4]/div/div[2]/div[1]/button[1]").click()
+    print("Next page")
+    time.sleep(3)
 
+    
+    return True
 
-
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     print("Loading..")
     ## user_input = get_user_input()
 
     ## url = user_input[0]
     ## num_pages = user_input[1]
-
     url = "https://www.itexams.com/exam/BCBA"
     num_pages = 3
     QA_data = pd.DataFrame(columns=['question', 'a', 'b', 'c', 'd', 'answer'])
-
-    page_crawler(url, QA_data)
-    print("Done!")
+    driver = webdriver.Chrome()
     
+    driver.get(url)
+    time.sleep(3)
+    page_crawler(url, QA_data)
+    move_around()
+    driver.quit()
+    print("Done!")
+
+

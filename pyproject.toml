@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "echo-teddy-crawler"
+version = "0.1.0"
+description = ""
+authors = ["juhong 7586 <juhong0422@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pandas = "^2.2.3"
+requests = "^2.32.3"
+bs4 = "^0.0.2"
+selenium = "^4.30.0"
+pylance = "^0.24.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
